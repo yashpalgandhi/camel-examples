@@ -36,6 +36,7 @@ public class ProducerConsumerAndProcessor {
 		ConsumerTemplate consumer = context.createConsumerTemplate();
 		String message = consumer.receiveBody("seda:end", String.class);
 		System.out.println(message);
+		context.stop();
 	}
 
 }

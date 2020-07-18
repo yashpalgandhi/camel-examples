@@ -14,7 +14,9 @@ public class ProducerConsumer {
 			
 			@Override
 			public void configure() throws Exception {
-				from("direct:start").to("seda:end");
+				from("direct:start").
+				to("log:?level=INFO&showBody=true&showHeaders=true").
+				to("seda:end");
 				
 			}
 		});
@@ -26,6 +28,7 @@ public class ProducerConsumer {
 		ConsumerTemplate consumer = context.createConsumerTemplate();
 		String message = consumer.receiveBody("seda:end", String.class);
 		System.out.println(message);
+		context.stop();
 	}
 
 }
